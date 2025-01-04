@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace ego_auto.BFF.Application.Contracts;
 
-public interface IVehicleService
+public interface ICarService
 {
 }

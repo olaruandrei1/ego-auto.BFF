@@ -7,6 +7,6 @@ namespace ego_auto.BFF.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class VehicleController(IVehicleService _service) : BaseController
+public class CarController(ICarService _service) : BaseController
 {
 }

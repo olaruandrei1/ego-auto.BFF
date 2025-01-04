@@ -2,6 +2,6 @@
 
 namespace ego_auto.BFF.Application.Implementations;
 
-public class CarService(ICarRepository _carRepository) : ICarService
+public class CarService(IVehicleRepository _carRepository) : IVehicleService
 {
 }

@@ -2,6 +2,6 @@
 
 namespace ego_auto.BFF.Persistence.Repositories;
 
-public sealed class UserRepository(IConnectionFactory _connectionFactory) : IUserRepository
+public sealed class UserRepository : IUserRepository
 {
 }

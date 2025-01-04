@@ -2,6 +2,6 @@
 
 namespace ego_auto.BFF.Persistence.Repositories;
 
-public sealed class BookingRepository(IConnectionFactory _connectionFactory) : IBookingRepository
+public sealed class BookingRepository : IBookingRepository
 {
 }

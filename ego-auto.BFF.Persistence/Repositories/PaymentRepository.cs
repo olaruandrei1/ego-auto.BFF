@@ -2,6 +2,6 @@
 
 namespace ego_auto.BFF.Persistence.Repositories;
 
-public sealed class PaymentRepository(IConnectionFactory _connectionFactory) : IPaymentRepository
+public sealed class PaymentRepository : IPaymentRepository
 {
 }

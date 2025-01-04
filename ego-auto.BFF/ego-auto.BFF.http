@@ -1,0 +1,6 @@
+@ego_auto.BFF_HostAddress = http://localhost:5290
+
+GET {{ego_auto.BFF_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

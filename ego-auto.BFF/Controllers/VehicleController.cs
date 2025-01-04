@@ -21,6 +21,6 @@ public class VehicleController(IVehicleService _service) : BaseController
 
     [HttpGet]
     [Route("{id}")]
-    public async Task<IActionResult> GetVehicle(int id)
+    public async Task<IActionResult> GetVehicleAsync(int id)
     => Ok(await _service.GetVehicleAsync(id));
 }

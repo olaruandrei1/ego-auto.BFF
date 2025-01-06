@@ -1,5 +1,5 @@
 using ego_auto.BFF.Application;
-using ego_auto.BFF.Domain.Utilities;
+using ego_auto.BFF.Infrastructure;
 using ego_auto.BFF.Middleware;
 using ego_auto.BFF.Persistence;
 using Serilog;
@@ -19,6 +19,7 @@ PersistenceDependencies.Register
             connectionString: builder.Configuration.GetConnectionString("PostgreSql")
         );
 ApplicationDependencies.Register(builder.Services);
+InfrastructureDependencies.Register(builder.Services);
 
 builder.Services.AddControllers();
 

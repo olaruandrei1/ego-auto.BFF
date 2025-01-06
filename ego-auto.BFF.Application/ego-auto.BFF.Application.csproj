@@ -16,8 +16,4 @@
     <ProjectReference Include="..\ego-auto.BFF.Domain\ego-auto.BFF.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Utilities\" />
-  </ItemGroup>
-
 </Project>

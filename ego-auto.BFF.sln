@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ego-auto.BFF", "ego-auto.BFF\ego-auto.BFF.csproj", "{7210D067-8C68-4BAA-9EE5-686EF8DD5F47}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F7F3BA12-F3C6-4B74-91E7-95AA699BF6A5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{773765A3-333A-4A9D-954C-CAD30B4646E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ego-auto.BFF.Infrastructure", "ego-auto.BFF.Infrastructure\ego-auto.BFF.Infrastructure.csproj", "{32BD116A-C6F2-4F22-938C-E5F610AA6916}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{DFA69349-B2B5-4A7E-BCD5-3B2613278B4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFA69349-B2B5-4A7E-BCD5-3B2613278B4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFA69349-B2B5-4A7E-BCD5-3B2613278B4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32BD116A-C6F2-4F22-938C-E5F610AA6916}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32BD116A-C6F2-4F22-938C-E5F610AA6916}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32BD116A-C6F2-4F22-938C-E5F610AA6916}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32BD116A-C6F2-4F22-938C-E5F610AA6916}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,5 +52,6 @@ Global
 		{E8877272-0BCD-4A13-8EC6-AE227D3CE6EC} = {F7F3BA12-F3C6-4B74-91E7-95AA699BF6A5}
 		{3510661A-C982-42C2-924C-A256BE9FD995} = {F7F3BA12-F3C6-4B74-91E7-95AA699BF6A5}
 		{DFA69349-B2B5-4A7E-BCD5-3B2613278B4C} = {F7F3BA12-F3C6-4B74-91E7-95AA699BF6A5}
+		{32BD116A-C6F2-4F22-938C-E5F610AA6916} = {F7F3BA12-F3C6-4B74-91E7-95AA699BF6A5}
 	EndGlobalSection
 EndGlobal

@@ -1,8 +1,6 @@
 ﻿using ego_auto.BFF.Domain.Common;
-using ego_auto.BFF.Domain.Dtos;
 using ego_auto.BFF.Domain.Entities;
 using ego_auto.BFF.Domain.Requests;
-using ego_auto.BFF.Domain.Responses;
 
 namespace ego_auto.BFF.Application.Contracts;
 

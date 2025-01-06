@@ -54,7 +54,6 @@ public sealed class VehicleRepository(AppDbContext _context) : IVehicleRepositor
         };
     }
 
-
     public async Task<Vehicle?> GetVehicleByIdAsync(int vehicleId) => await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == vehicleId);
 
     public Task DeleteVehicleAsync(int id)

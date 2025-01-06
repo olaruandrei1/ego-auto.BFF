@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ego-auto.BFF.Application\ego-auto.BFF.Application.csproj" />
+    <ProjectReference Include="..\ego-auto.BFF.Infrastructure\ego-auto.BFF.Infrastructure.csproj" />
     <ProjectReference Include="..\ego-auto.BFF.Persistence\ego-auto.BFF.Persistence.csproj" />
   </ItemGroup>
 

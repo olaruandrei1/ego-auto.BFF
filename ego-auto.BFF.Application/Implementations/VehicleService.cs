@@ -1,5 +1,5 @@
 ﻿using ego_auto.BFF.Application.Contracts;
-using ego_auto.BFF.Domain.Dtos;
+using ego_auto.BFF.Domain.Common;
 using ego_auto.BFF.Domain.Entities;
 using ego_auto.BFF.Domain.Requests;
 using ego_auto.BFF.Domain.Responses;
@@ -20,7 +20,7 @@ public class VehicleService(IVehicleRepository _vehicleRepository) : IVehicleSer
             await _vehicleRepository.GetVehicleByIdAsync(id)
         );
 
-    public async Task<CustomResponse> UpsertVehicleAsync(VehicleUpsertDto request)
+    public async Task<CustomResponse> UpsertVehicleAsync(VehicleUpsertRequest request)
     {
         await _vehicleRepository.UpsertVehicleAsync(request);
 
@@ -30,5 +30,12 @@ public class VehicleService(IVehicleRepository _vehicleRepository) : IVehicleSer
                     string.Format("Vehicle with id {0} was updated successfully!", request.VehicleId) :
                     string.Format("{0} was added successfully", request.Model)
                 );
+    }
+
+    public async Task<CustomResponse> DeleteVehicleAsync(int id)
+    {
+        await _vehicleRepository.DeleteVehicleAsync(id);
+
+        return CustomResponse.IsSuccess();
     }
 }

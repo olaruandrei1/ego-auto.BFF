@@ -1,6 +1,6 @@
-﻿namespace ego_auto.BFF.Domain.Dtos;
+﻿namespace ego_auto.BFF.Domain.Requests;
 
-public class VehicleUpsertDto
+public class VehicleUpsertRequest
 {
     public int? VehicleId { get; set; } = null;
     public string? Make { get; set; } = null;

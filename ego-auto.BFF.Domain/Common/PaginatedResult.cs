@@ -1,4 +1,4 @@
-﻿namespace ego_auto.BFF.Domain.Entities;
+﻿namespace ego_auto.BFF.Domain.Common;
 
 public class PaginatedResult<T>
 {

@@ -1,4 +1,4 @@
-﻿using ego_auto.BFF.Domain.Dtos;
+﻿using ego_auto.BFF.Domain.Common;
 using ego_auto.BFF.Domain.Entities;
 using ego_auto.BFF.Domain.Requests;
 using ego_auto.BFF.Domain.Responses;
@@ -9,5 +9,6 @@ public interface IVehicleService
 {
     Task<CustomResponse<PaginatedResult<Vehicle>>> GetVehiclesAsync(GetVehiclesRequest request);
     Task<CustomResponse<Vehicle>> GetVehicleAsync(int id);
-    Task<CustomResponse> UpsertVehicleAsync(VehicleUpsertDto request);
+    Task<CustomResponse> UpsertVehicleAsync(VehicleUpsertRequest request);
+    Task<CustomResponse> DeleteVehicleAsync(int id);
 }

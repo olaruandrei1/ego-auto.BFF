@@ -1,31 +1,24 @@
-﻿using ego_auto.BFF.Application.Contracts;
+﻿using ego_auto.BFF.Application.Contracts.Application;
+using ego_auto.BFF.Application.Contracts.Persistence;
 using ego_auto.BFF.Application.Utilities;
-using ego_auto.BFF.Domain.Common;
+using ego_auto.BFF.Domain.Common.Bindings;
 using ego_auto.BFF.Domain.Entities;
 using ego_auto.BFF.Domain.ExceptionTypes;
-using ego_auto.BFF.Domain.Requests;
+using ego_auto.BFF.Domain.Requests.Authentication;
 using ego_auto.BFF.Domain.Responses;
 using Microsoft.Extensions.Options;
 
 namespace ego_auto.BFF.Application.Implementations;
 
-public class UserService : IUserService
+public class UserService(IUserRepository userRepository, IOptions<AppSettings> appSettings) : IUserService
 {
-    private readonly IUserRepository _userRepository;
-    private readonly AppSettings _appSettings;
-
-    public UserService(IUserRepository userRepository, IOptions<AppSettings> appSettings)
-    {
-        _userRepository = userRepository;
-        _appSettings = appSettings.Value;
-    }
+    private readonly AppSettings _appSettings = appSettings.Value;
 
     public async Task<AuthenticationResponse> LogIn(LogInRequest request)
     {
-        User currentUser = await _userRepository.GetUser(request.Email!) ?? throw new CustomNotFound();
+        User currentUser = await userRepository.GetUser(request.Email!) ?? throw new CustomNotFound("Given email address doesn't exist in our database!");
 
-        if (!AuthHelper.VerifyPassword(request.Password!, currentUser.Password))
-            throw new CustomBadRequest();
+        if (!AuthHelper.VerifyPassword(request.Password!, currentUser.Password)) throw new CustomBadRequest("Given password is incorrect!");
 
         return new AuthenticationResponse(Token: AuthHelper.GenerateJwtToken
             (
@@ -42,20 +35,17 @@ public class UserService : IUserService
 
     public async Task<AuthenticationResponse> SignUp(SignUpRequest request)
     {
-        try
-        {
-            var existingUser = await _userRepository.GetUser(request.Email);
+        var existingUser = await userRepository.GetUser(request.Email);
 
-            if (existingUser is not null)
-            {
-                throw new CustomBadRequest();
-            }
+        if (existingUser is not null) throw new CustomBadRequest("Given email address doesn't exist in our database!");
 
-            await _userRepository.UpsertUser(request);
+        await userRepository.UpsertUser(request);
 
-            int userId = await _userRepository.GetUserIdByEmail(request.Email);
+        int userId = await userRepository.GetUserIdByEmail(request.Email);
 
-            return new AuthenticationResponse(Token: AuthHelper.GenerateJwtToken
+        return new AuthenticationResponse
+            (
+                Token: AuthHelper.GenerateJwtToken
                 (
                     data: new()
                     {
@@ -65,12 +55,7 @@ public class UserService : IUserService
                         UserId = userId is 0 ? -1 : userId
                     },
                     jwtConfiguration: _appSettings.JwtConfiguration
-                ));
-        }
-        catch (Exception ex)
-        {
-
-            throw;
-        }
+                )
+            );
     }
 }

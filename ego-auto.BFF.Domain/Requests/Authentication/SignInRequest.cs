@@ -1,5 +1,3 @@
-﻿using ego_auto.BFF.Domain.Common;
-
-namespace ego_auto.BFF.Domain.Requests;
+﻿namespace ego_auto.BFF.Domain.Requests.Authentication;
 
 public record SignUpRequest(string? AccountName, string? Email, string? Password, string? Role);

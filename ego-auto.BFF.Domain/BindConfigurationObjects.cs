@@ -1,4 +1,4 @@
-﻿using ego_auto.BFF.Domain.Common;
+﻿using ego_auto.BFF.Domain.Common.Bindings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

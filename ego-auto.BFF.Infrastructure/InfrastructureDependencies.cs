@@ -1,5 +1,5 @@
-﻿using ego_auto.BFF.Application.Contracts;
-using ego_auto.BFF.Domain.Common;
+﻿using ego_auto.BFF.Application.Contracts.Infrastructure;
+using ego_auto.BFF.Domain.Common.Bindings;
 using ego_auto.BFF.Infrastructure.Implementations;
 using Microsoft.Extensions.DependencyInjection;
 

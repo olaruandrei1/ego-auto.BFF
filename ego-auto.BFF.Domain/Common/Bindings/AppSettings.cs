@@ -1,8 +1,8 @@
-﻿namespace ego_auto.BFF.Domain.Common;
+﻿namespace ego_auto.BFF.Domain.Common.Bindings;
 
 public class AppSettings
 {
-    public static string? Key = "AppSettings";
+    public const string? Key = "AppSettings";
     public PaymentConfiguration? PaymentConfiguration { get; init; }
     public JwtConfiguration? JwtConfiguration { get; init; }
 }
@@ -19,7 +19,7 @@ public partial class PaymentConfiguration
 public partial class JwtConfiguration
 {
     public string? Key { get; init; }
-    public string? Issuer { get;init; }
+    public string? Issuer { get; init; }
     public string? Audience { get; init; }
     public double TokenExpireInHours { get; init; }
 }

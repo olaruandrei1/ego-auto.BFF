@@ -1,8 +1,8 @@
 ﻿using ego_auto.BFF.Domain.Common;
 using ego_auto.BFF.Domain.Entities;
-using ego_auto.BFF.Domain.Requests;
+using ego_auto.BFF.Domain.Requests.Payment;
 
-namespace ego_auto.BFF.Application.Contracts;
+namespace ego_auto.BFF.Application.Contracts.Persistence;
 
 public interface IPaymentRepository
 {

@@ -1,6 +1,6 @@
-﻿using ego_auto.BFF.Application.Contracts;
+﻿using ego_auto.BFF.Application.Contracts.Persistence;
 using ego_auto.BFF.Domain.Entities;
-using ego_auto.BFF.Domain.Requests;
+using ego_auto.BFF.Domain.Requests.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using System.Data;

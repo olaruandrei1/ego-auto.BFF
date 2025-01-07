@@ -1,4 +1,4 @@
-﻿using ego_auto.BFF.Application.Contracts;
+﻿using ego_auto.BFF.Application.Contracts.Infrastructure;
 using System.Net.Http;
 using System.Text.Json;
 

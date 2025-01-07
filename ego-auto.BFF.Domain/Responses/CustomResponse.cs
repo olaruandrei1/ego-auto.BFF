@@ -27,21 +27,7 @@ public class CustomResponse : ResponseProperties
             Id = default
         };
 
-    public static CustomResponse IsSuccess(int id, string? customProp = null)
-    =>
-        new()
-        {
-            Success = true,
-            Message =
-                string.Concat
-                    (
-                        "Operation was successful.",
-                        customProp
-                    ),
-            Errors = null,
-            Id = id
-        };
-
+   
     public static CustomResponse IsFailed()
     =>
         new()
@@ -52,12 +38,12 @@ public class CustomResponse : ResponseProperties
             Id = default
         };
 
-    public static CustomResponse IsFailed(List<string> errors)
+    public static CustomResponse IsFailed(List<string> errors, string? message = "Operation wasn't successful")
     =>
         new()
         {
             Success = false,
-            Message = "Operation wasn't successful",
+            Message = message,
             Errors = errors,
             Id = default
         };

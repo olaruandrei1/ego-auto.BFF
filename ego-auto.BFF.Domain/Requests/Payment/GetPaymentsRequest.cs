@@ -1,6 +1,6 @@
 ﻿using ego_auto.BFF.Domain.Common;
 
-namespace ego_auto.BFF.Domain.Requests;
+namespace ego_auto.BFF.Domain.Requests.Payment;
 
 public class GetPaymentsRequest
 {

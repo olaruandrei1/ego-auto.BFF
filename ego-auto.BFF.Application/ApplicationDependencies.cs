@@ -1,4 +1,4 @@
-﻿using ego_auto.BFF.Application.Contracts;
+﻿using ego_auto.BFF.Application.Contracts.Application;
 using ego_auto.BFF.Application.Implementations;
 using Microsoft.Extensions.DependencyInjection;
 

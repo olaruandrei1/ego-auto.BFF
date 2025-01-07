@@ -1,16 +1,19 @@
-﻿using ego_auto.BFF.Application.Contracts;
+﻿using ego_auto.BFF.Application.Contracts.Application;
+using ego_auto.BFF.Application.Contracts.Persistence;
 using ego_auto.BFF.Domain.Common;
 using ego_auto.BFF.Domain.Entities;
-using ego_auto.BFF.Domain.Requests;
+using ego_auto.BFF.Domain.Requests.Booking;
 using ego_auto.BFF.Domain.Responses;
 
 namespace ego_auto.BFF.Application.Implementations;
 
 public class BookingService(IBookingRepository _bookingRepository, IVehicleRepository _vehicleRepository) : IBookingService
 {
-    public Task<CustomResponse> DeleteBookingAsync(int id)
+    public async Task<CustomResponse> DeleteBookingAsync(int id)
     {
-        throw new NotImplementedException();
+        await _bookingRepository.DeleteBookingAsync(id);
+
+        return CustomResponse.IsSuccess();
     }
 
     public async Task<CustomResponse<Booking>> GetBookingByIdAsync(int id)

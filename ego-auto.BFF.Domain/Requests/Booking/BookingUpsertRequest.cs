@@ -1,4 +1,4 @@
-﻿namespace ego_auto.BFF.Domain.Requests;
+﻿namespace ego_auto.BFF.Domain.Requests.Booking;
 
 public class BookingUpsertRequest
 {

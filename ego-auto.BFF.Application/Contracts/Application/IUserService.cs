@@ -1,8 +1,7 @@
-﻿
-using ego_auto.BFF.Domain.Requests;
+﻿using ego_auto.BFF.Domain.Requests.Authentication;
 using ego_auto.BFF.Domain.Responses;
 
-namespace ego_auto.BFF.Application.Contracts;
+namespace ego_auto.BFF.Application.Contracts.Application;
 
 public interface IUserService
 {

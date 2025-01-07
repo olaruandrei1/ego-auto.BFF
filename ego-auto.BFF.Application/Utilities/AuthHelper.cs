@@ -1,4 +1,4 @@
-﻿using ego_auto.BFF.Domain.Common;
+﻿using ego_auto.BFF.Domain.Common.Bindings;
 using ego_auto.BFF.Domain.Utilities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

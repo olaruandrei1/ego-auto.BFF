@@ -1,6 +1,7 @@
 using ego_auto.BFF.Application;
 using ego_auto.BFF.Domain;
-using ego_auto.BFF.Domain.Common;
+using ego_auto.BFF.Domain.Common.Bindings;
+using ego_auto.BFF.Domain.ExceptionTypes;
 using ego_auto.BFF.Infrastructure;
 using ego_auto.BFF.Middleware;
 using ego_auto.BFF.Persistence;
@@ -8,6 +9,9 @@ using Serilog;
 using Serilog.Formatting.Compact;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var appSettings = builder.Configuration.GetSection("AppSettings").Get<AppSettings>();
+var connectionStrings = builder.Configuration.GetSection("ConnectionStrings").Get<ConnectionStrings>();
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
@@ -19,13 +23,14 @@ ApplicationDependencies.Register(builder.Services);
 PersistenceDependencies.Register
         (
             builder.Services,
-            builder.Configuration.GetSection("ConnectionStrings").Get<ConnectionStrings>() ?? throw new ArgumentNullException("Connection strings properties are missing from configurable file.")
+            connectionStrings ?? throw new CustomNotFound("Connection strings properties are missing from configurable file.")
         );
 InfrastructureDependencies.Register
         (
-            builder.Services, 
-            builder.Configuration.GetSection("AppSettings").Get<AppSettings>() ?? throw new ArgumentNullException("AppSettings properties are missing from configurable file.")
+            builder.Services,
+            appSettings ?? throw new CustomNotFound("AppSettings properties are missing from configurable file.")
         );
+AuthenticationDependencies.Configuration(builder.Services, appSettings.JwtConfiguration);
 
 builder.Services.AddControllers();
 

@@ -1,8 +1,7 @@
-﻿
-using ego_auto.BFF.Domain.Entities;
-using ego_auto.BFF.Domain.Requests;
+﻿using ego_auto.BFF.Domain.Entities;
+using ego_auto.BFF.Domain.Requests.Authentication;
 
-namespace ego_auto.BFF.Application.Contracts;
+namespace ego_auto.BFF.Application.Contracts.Persistence;
 
 public interface IUserRepository
 {

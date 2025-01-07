@@ -7,7 +7,7 @@ using ego_auto.BFF.Domain.Responses;
 
 namespace ego_auto.BFF.Application.Implementations;
 
-public class PaymentService(IPaymentRepository _paymentRepository, IBookingRepository _bookingRepository,IHttpClientWrapper _httpWrapper) : IPaymentService
+public class PaymentService(IPaymentRepository _paymentRepository, IBookingRepository _bookingRepository) : IPaymentService
 {
     public async Task<CustomResponse<Payment>> GetPaymentByIdAsync(int id)
     => CustomResponse<Payment>.IsSuccess

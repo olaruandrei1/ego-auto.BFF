@@ -1,20 +1,28 @@
 ﻿using ego_auto.BFF.Application.Contracts;
+using System.Net.Http;
 using System.Text.Json;
 
 namespace ego_auto.BFF.Infrastructure.Implementations;
 
-public sealed class HttpClientWrapper(HttpClient _httpClient) : IHttpClientWrapper
+public sealed class HttpClientWrapper(IHttpClientFactory _factory, string? _httpClient = null) : IHttpClientWrapper
 {
-    public async Task<TOut> PostAsync<TIn, TOut>(string url, TIn content, CancellationToken cancellationToken = default)
+    public async Task<TOut?> SendAsync<TIn, TOut>(HttpMethod method, string url, TIn content, CancellationToken cancellationToken = default, string mediaType = "application/json")
     {
-        StringContent jsonContent = new
-            (
+        var client = GetHttpClient();
+
+        HttpRequestMessage requestMessage = new HttpRequestMessage(method, url);
+
+        if (content != null)
+        {
+            var jsonContent = new StringContent(
                 System.Text.Json.JsonSerializer.Serialize(content),
                 System.Text.Encoding.UTF8,
-                "application/json"
+                mediaType
             );
+            requestMessage.Content = jsonContent;
+        }
 
-        var response = await _httpClient.PostAsync(requestUri: url, content: jsonContent, cancellationToken: cancellationToken);
+        var response = await client.SendAsync(requestMessage, cancellationToken);
 
         response.EnsureSuccessStatusCode();
 
@@ -24,20 +32,19 @@ public sealed class HttpClientWrapper(HttpClient _httpClient) : IHttpClientWrapp
             );
     }
 
-    public async Task<TOut> PutAsync<TIn, TOut>(string url, TIn content, CancellationToken cancellationToken = default)
+    public async Task<TOut?> GetAsync<TOut>(string url, CancellationToken cancellationToken = default)
     {
-        var jsonContent = new StringContent(
-            content: System.Text.Json.JsonSerializer.Serialize(content),
-            System.Text.Encoding.UTF8,
-            "application/json");
+        var client = GetHttpClient();
 
-        var response = await _httpClient.PutAsync(url, jsonContent, cancellationToken);
-
+        var response = await client.GetAsync(url, cancellationToken);
         response.EnsureSuccessStatusCode();
 
         return JsonSerializer.Deserialize<TOut>
-           (
-               await response.Content.ReadAsStringAsync(cancellationToken)
-           );
+            (
+                await response.Content.ReadAsStringAsync(cancellationToken)
+            );
     }
+
+    private HttpClient GetHttpClient()
+    => string.IsNullOrEmpty(_httpClient) ? _factory.CreateClient() : _factory.CreateClient(_httpClient);
 }

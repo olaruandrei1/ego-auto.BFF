@@ -9,7 +9,7 @@ public interface IPaymentService
 {
     Task<CustomResponse<Payment>> GetPaymentByIdAsync(int id);
     Task<CustomResponse<PaginatedResult<Payment>>> GetPaymentsAsync(GetPaymentsRequest request);
-    Task<CustomResponse> MakePayment(PaymentRequest request);
+    Task<CustomResponse> MakePayment(PaymentRequest request, int userId);
     Task<CustomResponse> RefundPaymentAsync(int id);
     Task<CustomResponse> UpdatePaymentStatus(UpdatePaymentStatusRequest request);
 }

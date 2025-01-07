@@ -20,7 +20,7 @@ public class PaymentController(IPaymentService _service) : BaseController
 
     [HttpPost]
     public async Task<IActionResult> MakePayment([FromBody] PaymentRequest request)
-    => Ok(await _service.MakePayment(request));
+    => Ok(await _service.MakePayment(request, 0));
 
     [HttpPut("update-payment-status")]
     public async Task<IActionResult> UpdatePaymentStatus([FromBody] UpdatePaymentStatusRequest request)

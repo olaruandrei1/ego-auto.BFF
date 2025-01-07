@@ -5,9 +5,8 @@ namespace ego_auto.BFF.Application.Utilities;
 
 internal static class Extensions
 {
-    internal static BookingUpsertRequest? MapBookingToUpsert(this Booking data) 
-    => data is null ? null :
-    new()
+    internal static BookingUpsertRequest MapBookingToUpsert(this Booking data)
+    => new()
     {
         VehicleId = data.VehicleId,
         RenterId = data.RenterId,

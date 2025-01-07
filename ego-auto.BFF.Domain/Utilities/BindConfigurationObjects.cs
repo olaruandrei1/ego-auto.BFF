@@ -6,8 +6,12 @@ namespace ego_auto.BFF.Domain.Utilities;
 
 public static class BindConfigurationObjects
 {
-    public static void Register(IServiceCollection services, IConfiguration configuration)
-    =>
-        services.AddSingleton(configuration.GetSection("AppSettings").Get<AppSettings>())
-                .AddSingleton(configuration.GetSection("ConnectionStrings").Get<ConnectionStrings>());
+    public static void Register(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddSingleton(configuration.GetSection("AppSettings").Get<AppSettings>()
+            ?? throw new InvalidOperationException("AppSettings configuration section is missing."));
+
+        services.AddSingleton(configuration.GetSection("ConnectionStrings").Get<ConnectionStrings>()
+            ?? throw new InvalidOperationException("ConnectionStrings configuration section is missing."));
+    }
 }

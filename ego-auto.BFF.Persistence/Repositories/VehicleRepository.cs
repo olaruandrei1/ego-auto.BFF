@@ -38,7 +38,7 @@ public sealed class VehicleRepository(AppDbContext _context) : IVehicleRepositor
             .Where(v => string.IsNullOrEmpty(request.ModelFilter) || v.Model.Contains(request.ModelFilter))
             .Where(v => !request.PricePerDayFilter.HasValue || v.PricePerDay == request.PricePerDayFilter.Value)
             .Where(v => string.IsNullOrEmpty(request.StatusFilter) || v.Status == request.StatusFilter)
-            .Where(v => string.IsNullOrEmpty(request.DescriptionFilter) || v.Description.Contains(request.DescriptionFilter));
+            .Where(v => string.IsNullOrEmpty(request.DescriptionFilter) || v.Description!.Contains(request.DescriptionFilter));
 
         var totalCount = await query.CountAsync();
 

@@ -4,4 +4,8 @@ namespace ego_auto.BFF.Persistence.Repositories;
 
 public sealed class UserRepository : IUserRepository
 {
+    public Task GetUser()
+    {
+        throw new NotImplementedException();
+    }
 }

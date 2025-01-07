@@ -2,5 +2,6 @@
 
 public class ConnectionStrings
 {
+    public static string? Key = "ConnectionStrings";
     public string? PostgreSql { get; set; }
 }

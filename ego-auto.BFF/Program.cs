@@ -1,6 +1,6 @@
 using ego_auto.BFF.Application;
+using ego_auto.BFF.Domain;
 using ego_auto.BFF.Domain.Common;
-using ego_auto.BFF.Domain.Utilities;
 using ego_auto.BFF.Infrastructure;
 using ego_auto.BFF.Middleware;
 using ego_auto.BFF.Persistence;
@@ -14,8 +14,8 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.File(new CompactJsonFormatter(), "logs/{Date}.json", rollingInterval: RollingInterval.Day, fileSizeLimitBytes: 10_000_000, rollOnFileSizeLimit: true)
     .CreateLogger();
 
-ApplicationDependencies.Register(builder.Services);
 BindConfigurationObjects.Register(builder.Services, builder.Configuration);
+ApplicationDependencies.Register(builder.Services);
 PersistenceDependencies.Register
         (
             builder.Services,

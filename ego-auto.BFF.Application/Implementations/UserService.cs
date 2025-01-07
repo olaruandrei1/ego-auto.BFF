@@ -1,11 +1,76 @@
 ﻿using ego_auto.BFF.Application.Contracts;
+using ego_auto.BFF.Application.Utilities;
+using ego_auto.BFF.Domain.Common;
+using ego_auto.BFF.Domain.Entities;
+using ego_auto.BFF.Domain.ExceptionTypes;
+using ego_auto.BFF.Domain.Requests;
+using ego_auto.BFF.Domain.Responses;
+using Microsoft.Extensions.Options;
 
 namespace ego_auto.BFF.Application.Implementations;
 
-public class UserService(IUserRepository _userRepository) : IUserService
+public class UserService : IUserService
 {
-    public async Task GetUser()
+    private readonly IUserRepository _userRepository;
+    private readonly AppSettings _appSettings;
+
+    public UserService(IUserRepository userRepository, IOptions<AppSettings> appSettings)
     {
-        await _userRepository.GetUser();
+        _userRepository = userRepository;
+        _appSettings = appSettings.Value;
+    }
+
+    public async Task<AuthenticationResponse> LogIn(LogInRequest request)
+    {
+        User currentUser = await _userRepository.GetUser(request.Email!) ?? throw new CustomNotFound();
+
+        if (!AuthHelper.VerifyPassword(request.Password!, currentUser.Password))
+            throw new CustomBadRequest();
+
+        return new AuthenticationResponse(Token: AuthHelper.GenerateJwtToken
+            (
+                data: new()
+                {
+                    Email = currentUser.Email ?? null,
+                    Role = currentUser.Role ?? "Guest",
+                    AccountName = currentUser.AccountName ?? "Guest",
+                    UserId = currentUser.Id is 0 ? -1 : currentUser.Id
+                },
+                jwtConfiguration: _appSettings.JwtConfiguration
+            ));
+    }
+
+    public async Task<AuthenticationResponse> SignUp(SignUpRequest request)
+    {
+        try
+        {
+            var existingUser = await _userRepository.GetUser(request.Email);
+
+            if (existingUser is not null)
+            {
+                throw new CustomBadRequest();
+            }
+
+            await _userRepository.UpsertUser(request);
+
+            int userId = await _userRepository.GetUserIdByEmail(request.Email);
+
+            return new AuthenticationResponse(Token: AuthHelper.GenerateJwtToken
+                (
+                    data: new()
+                    {
+                        Email = request.Email ?? null,
+                        Role = request.Role ?? "Guest",
+                        AccountName = request.AccountName ?? "Guest",
+                        UserId = userId is 0 ? -1 : userId
+                    },
+                    jwtConfiguration: _appSettings.JwtConfiguration
+                ));
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
     }
 }

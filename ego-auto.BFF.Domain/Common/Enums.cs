@@ -1,4 +1,5 @@
-﻿namespace ego_auto.BFF.Domain.Common;
+﻿
+namespace ego_auto.BFF.Domain.Common;
 
 public enum VehicleStatus
 {
@@ -19,4 +20,12 @@ public enum PaymentStatus
     Paid,
     Pending,
     Failed
+}
+
+public enum UserRoles
+{
+    Admin,
+    Renter,
+    Support,
+    Guest
 }

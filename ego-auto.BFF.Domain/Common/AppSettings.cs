@@ -2,7 +2,9 @@
 
 public class AppSettings
 {
+    public static string? Key = "AppSettings";
     public PaymentConfiguration? PaymentConfiguration { get; init; }
+    public JwtConfiguration? JwtConfiguration { get; init; }
 }
 
 public partial class PaymentConfiguration
@@ -12,4 +14,12 @@ public partial class PaymentConfiguration
     public string? ExecutePayment { get; init; }
     public string? RefundPayment { get; init; }
     public string? CancelPayment { get; init; }
+}
+
+public partial class JwtConfiguration
+{
+    public string? Key { get; init; }
+    public string? Issuer { get;init; }
+    public string? Audience { get; init; }
+    public double TokenExpireInHours { get; init; }
 }

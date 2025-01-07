@@ -22,4 +22,10 @@
     <ProjectReference Include="..\ego-auto.BFF.Persistence\ego-auto.BFF.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

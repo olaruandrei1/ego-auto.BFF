@@ -1,6 +1,7 @@
 ﻿using ego_auto.BFF.Application.Contracts.Persistence;
 using ego_auto.BFF.Domain.Common;
 using ego_auto.BFF.Domain.Entities;
+using ego_auto.BFF.Domain.ExceptionTypes;
 using ego_auto.BFF.Domain.Requests.Booking;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
@@ -58,8 +59,17 @@ public sealed class BookingRepository(AppDbContext _context) : IBookingRepositor
         );
     }
 
-    public Task DeleteBookingAsync(int id)
+    public async Task DeleteBookingAsync(int id)
     {
-        throw new NotImplementedException();
+        var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.Id == id);
+
+        if (booking is null)
+        {
+            throw new CustomNotFound($"Booking with ID {id} not found.");
+        }
+
+        _context.Bookings.Remove(booking);
+
+        await _context.SaveChangesAsync();
     }
 }

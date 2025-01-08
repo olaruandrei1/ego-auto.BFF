@@ -9,5 +9,5 @@ public interface IVehicleRepository
     Task UpsertVehicleAsync(VehicleUpsertRequest model);
     Task<PaginatedResult<Vehicle>> GetVehiclesAsync(GetVehiclesRequest request);
     Task<Vehicle?> GetVehicleByIdAsync(int vehicleId);
-    Task DeleteVehicleAsync(int id);
+    Task DeleteVehicleAsync(int vehicleId);
 }

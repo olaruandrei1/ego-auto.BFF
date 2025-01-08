@@ -1,6 +1,7 @@
 ﻿using ego_auto.BFF.Application.Contracts.Persistence;
 using ego_auto.BFF.Domain.Common;
 using ego_auto.BFF.Domain.Entities;
+using ego_auto.BFF.Domain.ExceptionTypes;
 using ego_auto.BFF.Domain.Requests.Vehicle;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
@@ -56,8 +57,17 @@ public sealed class VehicleRepository(AppDbContext _context) : IVehicleRepositor
 
     public async Task<Vehicle?> GetVehicleByIdAsync(int vehicleId) => await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == vehicleId);
 
-    public Task DeleteVehicleAsync(int id)
+    public async Task DeleteVehicleAsync(int vehicleId)
     {
-        throw new NotImplementedException();
+        var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == vehicleId);
+
+        if (vehicle == null)
+        {
+            throw new CustomNotFound($"Vehicle with ID {vehicleId} not found.");
+        }
+
+        _context.Vehicles.Remove(vehicle);
+
+        await _context.SaveChangesAsync();
     }
 }

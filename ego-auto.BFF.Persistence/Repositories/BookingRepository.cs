@@ -61,12 +61,7 @@ public sealed class BookingRepository(AppDbContext _context) : IBookingRepositor
 
     public async Task DeleteBookingAsync(int id)
     {
-        var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.Id == id);
-
-        if (booking is null)
-        {
-            throw new CustomNotFound($"Booking with ID {id} not found.");
-        }
+        var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.Id == id) ?? throw new CustomNotFound($"Booking with ID {id} not found.");
 
         _context.Bookings.Remove(booking);
 

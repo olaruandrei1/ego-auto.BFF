@@ -61,7 +61,7 @@ public sealed class VehicleRepository(AppDbContext _context) : IVehicleRepositor
     {
         var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == vehicleId);
 
-        if (vehicle == null)
+        if (vehicle is null)
         {
             throw new CustomNotFound($"Vehicle with ID {vehicleId} not found.");
         }

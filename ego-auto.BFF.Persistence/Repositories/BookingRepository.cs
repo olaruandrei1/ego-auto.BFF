@@ -63,7 +63,7 @@ public sealed class BookingRepository(AppDbContext _context) : IBookingRepositor
     {
         var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.Id == id);
 
-        if (booking == null)
+        if (booking is null)
         {
             throw new CustomNotFound($"Booking with ID {id} not found.");
         }

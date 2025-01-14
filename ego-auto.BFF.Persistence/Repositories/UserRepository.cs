@@ -1,5 +1,6 @@
 ﻿using ego_auto.BFF.Application.Contracts.Persistence;
 using ego_auto.BFF.Domain.Entities;
+using ego_auto.BFF.Domain.ExceptionTypes;
 using ego_auto.BFF.Domain.Requests.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
@@ -22,7 +23,7 @@ public sealed class UserRepository(AppDbContext _context) : IUserRepository
         NpgsqlParameter accountNameParam = new("p_account_name", request.AccountName ?? (object)DBNull.Value)
         {
             Direction = ParameterDirection.Input
-        }; 
+        };
         NpgsqlParameter emailParam = new("p_email", request.Email ?? (object)DBNull.Value)
         {
             Direction = ParameterDirection.Input
@@ -47,5 +48,17 @@ public sealed class UserRepository(AppDbContext _context) : IUserRepository
             passwordParam,
             roleParam
         );
+    }
+
+    public async Task SetSessionUser(string? userId)
+    {
+        string sql;
+
+        if (userId is null)
+            sql = $"SET myapp.user_id = '{userId}';";
+        else
+            sql = "SET myapp.user_id = NULL;";
+
+        await _context.Database.ExecuteSqlRawAsync(sql);
     }
 }

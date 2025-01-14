@@ -10,13 +10,13 @@ using Microsoft.Extensions.Options;
 
 namespace ego_auto.BFF.Application.Implementations;
 
-public class UserService(IUserRepository userRepository, IOptions<AppSettings> appSettings) : IUserService
+public class UserService(IUserRepository _userRepository, IOptions<AppSettings> appSettings) : IUserService
 {
     private readonly AppSettings _appSettings = appSettings.Value;
 
     public async Task<AuthenticationResponse> LogIn(LogInRequest request)
     {
-        User currentUser = await userRepository.GetUser(request.Email!) ?? throw new CustomNotFound("Given email address doesn't exist in our database!");
+        User currentUser = await _userRepository.GetUser(request.Email!) ?? throw new CustomNotFound("Given email address doesn't exist in our database!");
 
         if (!AuthHelper.VerifyPassword(request.Password!, currentUser.Password)) throw new CustomBadRequest("Given password is incorrect!");
 
@@ -35,13 +35,13 @@ public class UserService(IUserRepository userRepository, IOptions<AppSettings> a
 
     public async Task<AuthenticationResponse> SignUp(SignUpRequest request)
     {
-        var existingUser = await userRepository.GetUser(request.Email);
+        var existingUser = await _userRepository.GetUser(request.Email);
 
         if (existingUser is not null) throw new CustomBadRequest("Given email address doesn't exist in our database!");
 
-        await userRepository.UpsertUser(request);
+        await _userRepository.UpsertUser(request);
 
-        int userId = await userRepository.GetUserIdByEmail(request.Email);
+        int userId = await _userRepository.GetUserIdByEmail(request.Email);
 
         return new AuthenticationResponse
             (
@@ -58,4 +58,7 @@ public class UserService(IUserRepository userRepository, IOptions<AppSettings> a
                 )
             );
     }
+
+
+    public async Task SetSessionUser(string? userId) => await _userRepository.SetSessionUser(userId);
 }

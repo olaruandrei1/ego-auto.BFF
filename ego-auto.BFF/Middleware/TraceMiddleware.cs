@@ -1,4 +1,6 @@
-﻿using ego_auto.BFF.Utilities;
+﻿using ego_auto.BFF.Application.Contracts.Application;
+using ego_auto.BFF.Domain.Entities;
+using ego_auto.BFF.Utilities;
 using System.Text.Json;
 
 namespace ego_auto.BFF.Middleware;
@@ -9,7 +11,11 @@ public class TraceMiddleware(RequestDelegate _next)
     {
         try
         {
+            await TraceHelper.SetSessionUser(context: context, setUser: true);
+
             await _next(context);
+
+            await TraceHelper.SetSessionUser(context: context, setUser: false);
         }
         catch (Exception ex)
         {

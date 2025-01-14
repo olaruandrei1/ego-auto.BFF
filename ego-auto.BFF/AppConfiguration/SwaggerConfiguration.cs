@@ -1,6 +1,6 @@
 ﻿using Microsoft.OpenApi.Models;
 
-namespace ego_auto.BFF.Utilities;
+namespace ego_auto.BFF.AppConfiguration;
 
 public static class SwaggerConfiguration
 {

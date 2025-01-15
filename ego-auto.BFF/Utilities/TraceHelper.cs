@@ -31,7 +31,7 @@ public class TraceHelper
             throw new IDKError("Token is missing or invalid");
         }
 
-        var userId = AuthHelper.DecodeJwtToken(token);
+        var userId = AuthHelper.GetUserIdFromToken(token);
 
         var service = context.RequestServices.GetRequiredService<IUserService>();
 

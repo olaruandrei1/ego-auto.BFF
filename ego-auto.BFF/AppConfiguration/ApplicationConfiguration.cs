@@ -16,6 +16,7 @@ public static class ApplicationConfiguration
               .UseHttpsRedirection()
               .UseAuthentication()
               .UseAuthorization();
+
         app.MapControllers();
 
         var corsSettings = configuration.GetSection("CorsSettings").Get<CorsSettings>().Policies;

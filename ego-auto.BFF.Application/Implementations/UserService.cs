@@ -37,7 +37,7 @@ public class UserService(IUserRepository _userRepository, IOptions<AppSettings> 
     {
         var existingUser = await _userRepository.GetUser(request.Email);
 
-        if (existingUser is not null) throw new CustomBadRequest("Given email address doesn't exist in our database!");
+        if (existingUser is not null) throw new CustomBadRequest("Given email address exist in our database!");
 
         await _userRepository.UpsertUser(request);
 
@@ -61,4 +61,5 @@ public class UserService(IUserRepository _userRepository, IOptions<AppSettings> 
 
 
     public async Task SetSessionUser(string? userId) => await _userRepository.SetSessionUser(userId);
+    public async Task ResetSessionUser() => await _userRepository.SetSessionUser(null);
 }

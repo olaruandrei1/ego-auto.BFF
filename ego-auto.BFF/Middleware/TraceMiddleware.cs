@@ -11,11 +11,11 @@ public class TraceMiddleware(RequestDelegate _next)
     {
         try
         {
-            await TraceHelper.SetSessionUser(context: context, setUser: true);
+            await TraceHelper.SetSessionUser(context: context);
 
             await _next(context);
 
-            await TraceHelper.SetSessionUser(context: context, setUser: false);
+            await TraceHelper.ResetSessionUser(context: context);
         }
         catch (Exception ex)
         {

@@ -1,5 +1,4 @@
 ﻿using ego_auto.BFF.Application.Contracts.Application;
-using ego_auto.BFF.Domain.Common;
 using ego_auto.BFF.Domain.Requests.Vehicle;
 using ego_auto.BFF.Utilities;
 using Microsoft.AspNetCore.Authorization;

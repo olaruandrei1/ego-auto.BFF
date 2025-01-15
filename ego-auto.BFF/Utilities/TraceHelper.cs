@@ -1,6 +1,8 @@
 ﻿using ego_auto.BFF.Application.Contracts.Application;
+using ego_auto.BFF.Application.Utilities;
 using ego_auto.BFF.Domain.ExceptionTypes;
 using ego_auto.BFF.Domain.Responses;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ego_auto.BFF.Utilities;
 
@@ -19,18 +21,27 @@ public class TraceHelper
         return (httpStatusCode, CustomResponse.IsFailed(message: ex.InnerException.Message, errors: [ex.Message]));
     }
 
-    public async static Task SetSessionUser(HttpContext context, bool setUser)
+    //out of time - to do InstanceHelper
+    public async static Task SetSessionUser(HttpContext context)
     {
-        var userContextService = context.RequestServices.GetRequiredService<IUserService>();
+        var token = context.Request.Headers.Authorization.ToString().Replace("Bearer ", "");
 
-        if (setUser)
-            await userContextService.SetSessionUser(null);
-        else
+        if (string.IsNullOrEmpty(token))
         {
-            var userId = context.User.FindFirst("id")?.Value;
-
-            if (!string.IsNullOrEmpty(userId))
-                await userContextService.SetSessionUser(userId);
+            throw new IDKError("Token is missing or invalid");
         }
+
+        var userId = AuthHelper.DecodeJwtToken(token);
+
+        var service = context.RequestServices.GetRequiredService<IUserService>();
+
+        await service.SetSessionUser(userId);
+    }
+
+    public async static Task ResetSessionUser(HttpContext context)
+    {
+        var service = context.RequestServices.GetRequiredService<IUserService>();
+
+        await service.ResetSessionUser();
     }
 }

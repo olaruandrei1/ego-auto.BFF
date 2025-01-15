@@ -17,5 +17,8 @@ public class UserController(IUserService _service) : ControllerBase
     [HttpPost]
     [Route("sign-up")]
     public async Task<IActionResult> SignUp(SignUpRequest request)
-    => Ok(await _service.SignUp(request));
+    {
+        var response = await _service.SignUp(request);
+        return Ok(response);
+    }
 }

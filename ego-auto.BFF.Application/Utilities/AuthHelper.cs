@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ego_auto.BFF.Application.Utilities;
 
-internal static class AuthHelper
+public static class AuthHelper
 {
     public static string GenerateJwtToken(TokenDependecies data, JwtConfiguration jwtConfiguration)
     {
@@ -38,4 +38,26 @@ internal static class AuthHelper
 
     public static bool VerifyPassword(string inputPassword, string hashedPassword)
     => BCrypt.Net.BCrypt.Verify(inputPassword, hashedPassword);
+
+    public static string DecodeJwtToken(string token)
+    {
+        var handler = new JwtSecurityTokenHandler();
+
+        if (handler.CanReadToken(token))
+        {
+            var jwtToken = handler.ReadJwtToken(token);
+
+            var claims = jwtToken.Claims;
+            foreach (var claim in claims)
+            {
+                Console.WriteLine($"Claim: {claim.Type} = {claim.Value}");
+            }
+
+            var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
+
+            return userId;
+        }
+
+        throw new ArgumentException("Invalid token");
+    }
 }

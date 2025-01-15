@@ -41,7 +41,10 @@ public sealed class VehicleRepository(AppDbContext _context) : IVehicleRepositor
             .Where(v => string.IsNullOrEmpty(request.StatusFilter) || v.Status == request.StatusFilter)
             .Where(v => string.IsNullOrEmpty(request.DescriptionFilter) || v.Description!.Contains(request.DescriptionFilter));
 
-        var totalCount = await query.CountAsync();
+        var totalPages = (int)Math.Ceiling
+            (
+                await query.CountAsync() / (double)request.PageSize
+            );
 
         var vehicles = await query
             .Skip((request.PageNumber - 1) * request.PageSize)
@@ -50,7 +53,7 @@ public sealed class VehicleRepository(AppDbContext _context) : IVehicleRepositor
 
         return new PaginatedResult<Vehicle>
         {
-            TotalCount = totalCount,
+            TotalCount = totalPages,
             Items = vehicles
         };
     }

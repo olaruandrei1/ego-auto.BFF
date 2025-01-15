@@ -9,4 +9,5 @@ public interface IUserService
     Task<AuthenticationResponse> LogIn(LogInRequest request);
     Task<AuthenticationResponse> SignUp(SignUpRequest request);
     Task SetSessionUser(string? userId);
+    Task ResetSessionUser();
 }

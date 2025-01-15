@@ -54,10 +54,10 @@ public sealed class UserRepository(AppDbContext _context) : IUserRepository
     {
         string sql;
 
-        if (userId is null)
+        if (!string.IsNullOrEmpty(userId))
             sql = $"SET myapp.user_id = '{userId}';";
         else
-            sql = "SET myapp.user_id = NULL;";
+            sql = "RESET myapp.user_id;";
 
         await _context.Database.ExecuteSqlRawAsync(sql);
     }

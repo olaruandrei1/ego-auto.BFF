@@ -1,4 +1,5 @@
 ﻿using ego_auto.BFF.Domain.Common.Bindings;
+using ego_auto.BFF.Domain.ExceptionTypes;
 using ego_auto.BFF.Domain.Utilities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -52,6 +53,6 @@ public static class AuthHelper
             return userId;
         }
 
-        throw new ArgumentException("Invalid token");
+        throw new IDKError("Invalid token");
     }
 }
